@@ -1,0 +1,37 @@
+@import "../node_modules/normalize-scss/sass/_normalize.scss";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+//everything border-box
+*,*:before,*:after{
+    box-sizing: border-box;
+    margin:0px;
+    padding:0px;
+
+}
+
+//main body styles
+body{
+    //sizing
+    min-width: 100%;
+    min-height: 100vh;
+
+    //bg
+    //background:#ddd;
+
+    //position of content
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.main-wrapper{
+    //min size for better visual
+    width: 400px;
+    border-radius: 4px;
+    background-color:white;
+}
+
+
+// -------- CMS STYLING ------ //
+@import "./cms/_cms.scss";

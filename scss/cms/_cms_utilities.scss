@@ -1,0 +1,29 @@
+.cms-utilities{
+
+    
+    //default display - size
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding:10px 10px 10px 0px; //left is 0 so space is consistant with wrap
+
+    //border
+    border-bottom: 2px solid $brand-primary;
+
+
+
+    //button actions for CMS
+    button{
+
+        //extra width for btns
+        padding-left:20px;
+        padding-right:20px;
+
+        //space between btns
+        margin-top:10px;
+        margin-left:10px;
+
+    }
+
+}

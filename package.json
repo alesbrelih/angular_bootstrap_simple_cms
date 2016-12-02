@@ -1,0 +1,32 @@
+{
+  "name": "10_angular_bootstrap_simple_cms",
+  "version": "1.0.0",
+  "description": "Angular with bootstrap simple CMS tool.",
+  "main": "app.js",
+  "scripts": {
+    "test": "gulp debug"
+  },
+  "keywords": [
+    "bootstrap",
+    "angular",
+    "cms"
+  ],
+  "author": "Aleš Brelih",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.9",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "^3.1.1",
+    "normalize-scss": "^6.0.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.2",
+    "browserify": "^13.1.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.3.2",
+    "gutil": "^1.6.4",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

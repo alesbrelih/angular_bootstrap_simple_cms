@@ -1,0 +1,25 @@
+// MAIN CMS WRAPPER STYLES
+.cms-tool{
+
+    //default cms wrapper styles
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    //border
+    border:2px solid $brand-primary;
+    border-radius: 4px;
+
+    //bg color
+    background-color: $gray-lighter;
+
+    //min - size
+    min-height: 400px;
+
+    @import "./_cms_utilities.scss";
+    @import "./_cms_body.scss";
+    @import "./_cms_preview.scss";
+    @import "./_cms_preview_action_bar.scss";
+
+}

@@ -1,0 +1,33 @@
+.cms-body{
+    //this part resizes
+    flex:1;
+
+    //padding for content
+    padding:10px;
+
+    position: relative;
+    width:100%;
+    height:100%;
+
+    max-height: 600px;
+
+    //text area styles
+    textarea{
+
+        //border styles
+        border-radius: 4px;
+        border-color:$brand-primary;
+
+        //sizing
+        width:100% !important;
+        height:100% !important;
+        box-sizing: border-box;         /* For IE and modern versions of Chrome */
+        -moz-box-sizing: border-box;    /* For Firefox                          */
+        -webkit-box-sizing: border-box; //
+
+        //extra padding inside area
+        padding:20px;
+
+    }
+
+}

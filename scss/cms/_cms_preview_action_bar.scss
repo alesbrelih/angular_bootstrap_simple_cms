@@ -1,0 +1,13 @@
+/*  STYLES FOR CMS FOOTER - SHOW PREVIEW BTN WARPPER*/
+.cms-preview-action-bar{
+    //padding and size
+    padding:10px;
+    width:100%;
+
+    //button styles
+    button{
+        //extra width with padding
+        padding-left:20px;
+        padding-right:20px;
+    }
+}
