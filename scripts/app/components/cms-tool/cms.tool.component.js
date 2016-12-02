@@ -4,11 +4,32 @@
 function cmsToolComponentModule(app){
 
     //cms tool controller
-    function cmsToolController(){
+    function cmsToolController($sce,$scope){
         const vm = this;
+
+        // --- PROPERTIES --- //
+
+        //text area content
+        vm.content = "";
+
+        //displayed html
+        vm.safe = "";
+
+        //show preview
+        vm.showPreview = false;
+
+
+        // --- WATCH --- //
+
+        //watch and set
+        $scope.$watch("vm.content",function(){
+            vm.safe =  $sce.trustAsHtml(vm.content);
+        });
 
 
     }
+
+    cmsToolController.$inject = ["$sce","$scope"];
 
     //register component on app
     app.component("abCmsTool",{

@@ -1,0 +1,45 @@
+
+// --- CMS PREVIEW DIV --- //
+
+.cms-preview{
+
+    //display block
+
+    //full size
+    width:100%;
+    height: 600px;
+
+    //border style
+    border: 2px solid $brand-primary;
+    border-radius:4px;
+
+    //back ground color
+    background-color:$gray-lighter;
+
+    //margin top
+    margin-top:10px;
+
+    //padding
+    padding:10px;
+
+    //html wrapper
+    .html-content{
+
+        //takes full wrapper size
+        width:100%;
+        height: 100%;
+
+        //bg color
+        background-color:white;
+
+        //border
+        border:1px solid $brand-primary;
+        border-radius: inherit;
+
+        //extra padding
+        padding:20px;
+
+        
+    }
+
+}

@@ -14,12 +14,15 @@
     //bg color
     background-color: $gray-lighter;
 
+
     //min - size
     min-height: 400px;
 
     @import "./_cms_utilities.scss";
     @import "./_cms_body.scss";
-    @import "./_cms_preview.scss";
+
     @import "./_cms_preview_action_bar.scss";
 
 }
+
+@import "./_cms_preview.scss";

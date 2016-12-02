@@ -14,6 +14,12 @@
         <textarea ng-model="vm.content" rows="20"></textarea>
     </div>
     <div class="cms-preview-action-bar text-right">
-        <button class="btn btn-primary glyphicon glyphicon-eye-open"></button>
+        <button class="btn btn-primary glyphicon glyphicon-eye-open" ng-click="vm.showPreview = !vm.showPreview"></button>
+    </div>
+
+</div>
+<div class="cms-preview" ng-if="vm.showPreview">
+    <div class="html-content" ng-bind-html="vm.safe">
+
     </div>
 </div>
