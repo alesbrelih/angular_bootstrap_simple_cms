@@ -42631,11 +42631,14 @@ return jQuery;
     //register components
     const components = require("./components/app.components");
     components(app);
-    
+
+    //register directives
+    const directives = require("./directives/app.directives");
+    directives(app);
 
 
 })();
-},{"../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min":3,"./components/app.components":6,"angular":2,"jquery":4}],6:[function(require,module,exports){
+},{"../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min":3,"./components/app.components":6,"./directives/app.directives":8,"angular":2,"jquery":4}],6:[function(require,module,exports){
 function allComponentsModule(app){
 
     //register cms-tool component
@@ -42661,11 +42664,18 @@ function cmsToolComponentModule(app){
         //text area content
         vm.content = "";
 
+        //selectd text
+        vm.selected = "";
+
         //displayed html
         vm.safe = "";
 
         //show preview
         vm.showPreview = false;
+
+        vm.test = ()=>{
+
+        };
 
 
         // --- WATCH --- //
@@ -42691,4 +42701,60 @@ function cmsToolComponentModule(app){
 
 
 module.exports = cmsToolComponentModule;
+},{}],8:[function(require,module,exports){
+// ---- REGISTERS ALL DIRECTIVES MODULE --- //
+function registerAllDirectivesModule(app){
+
+    //register ab-selected-text DIRECTIVES
+    const abSelectedText = require("./attributes/ab.selected.text.directive");
+    abSelectedText(app);
+
+}
+
+module.exports = registerAllDirectivesModule;
+},{"./attributes/ab.selected.text.directive":9}],9:[function(require,module,exports){
+function abSelectedTextDirectiveModule(app){
+
+    // directive controller
+    function abSelectedTextDirectiveController(){
+
+        //link fnc
+        function linkFnc(scope,el){
+
+            el.on("mouseup",function(e){
+                //left mouse button
+                if(e.which === 1){
+
+                    //selection start index
+                    const selectionStart = el[0].selectionStart;
+                    //selection end index
+                    const selectionEnd = el[0].selectionEnd;
+
+                    //selected text
+                    const selection = el[0].value.substring(selectionStart,selectionEnd);
+
+                    //set scope var
+                    scope.abSelectedText = selection;
+                }
+
+            });
+        }
+
+        //returned def for directive
+        return{
+            restrict:"A",
+            link:linkFnc,
+            scope:{
+                abSelectedText:"=" //var that selected text will be assigned to
+            }
+
+        };
+    }
+
+    //register directive
+    app.directive("abSelectedText",abSelectedTextDirectiveController);
+}
+
+//export module
+module.exports = abSelectedTextDirectiveModule;
 },{}]},{},[5]);

@@ -11,7 +11,10 @@
     //register components
     const components = require("./components/app.components");
     components(app);
-    
+
+    //register directives
+    const directives = require("./directives/app.directives");
+    directives(app);
 
 
 })();

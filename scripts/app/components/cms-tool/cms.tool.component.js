@@ -12,11 +12,18 @@ function cmsToolComponentModule(app){
         //text area content
         vm.content = "";
 
+        //selectd text
+        vm.selected = "";
+
         //displayed html
         vm.safe = "";
 
         //show preview
         vm.showPreview = false;
+
+        vm.test = ()=>{
+
+        };
 
 
         // --- WATCH --- //

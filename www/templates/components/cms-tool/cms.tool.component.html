@@ -1,17 +1,19 @@
 <div class="cms-tool">
     <div class="cms-utilities">
-        <button class="btn btn-primary">p</button>
-        <button class="btn btn-primary">1/2</button>
-        <button class="btn btn-primary">1/3</button>
-        <button class="btn btn-primary">hr</button>
-        <button class="btn btn-primary">h1</button>
-        <button class="btn btn-primary">h2</button>
-        <button class="btn btn-primary">h3</button>
-        <button class="btn btn-primary">row</button>
+        <button class="btn btn-primary">&lt p &gt</button>
+        <button class="btn btn-primary"><strong>b</strong></button>
+        <button class="btn btn-primary"><i>i</i></button>
+        <button class="btn btn-primary">&lt1/2 &gt</button>
+        <button class="btn btn-primary">&lt1/3 &gt</button>
+        <button class="btn btn-primary">&lt hr &gt</button>
+        <button class="btn btn-primary">&lt h1 &gt</button>
+        <button class="btn btn-primary">&lt h2 &gt</button>
+        <button class="btn btn-primary">&lt h3 &gt</button>
+        <button class="btn btn-primary">&lt row &gt</button>
         <button class="btn btn-primary glyphicon glyphicon-file"></button>
     </div>
     <div class="cms-body">
-        <textarea ng-model="vm.content" rows="20"></textarea>
+        <textarea ab-selected-text="vm.selected" ng-model="vm.content" rows="20"></textarea>
     </div>
     <div class="cms-preview-action-bar text-right">
         <button class="btn btn-primary glyphicon glyphicon-eye-open" ng-click="vm.showPreview = !vm.showPreview"></button>
