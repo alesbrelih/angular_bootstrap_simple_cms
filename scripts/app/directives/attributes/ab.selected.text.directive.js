@@ -6,6 +6,13 @@ function abSelectedTextDirectiveModule(app){
         //link fnc
         function linkFnc(scope,el){
 
+            //init set selected text values
+            scope.abSelectedText = {
+                selection:null,
+                start:null,
+                end:null
+            };
+
             el.on("mouseup",function(e){
                 //left mouse button
                 if(e.which === 1){
@@ -19,7 +26,9 @@ function abSelectedTextDirectiveModule(app){
                     const selection = el[0].value.substring(selectionStart,selectionEnd);
 
                     //set scope var
-                    scope.abSelectedText = selection;
+                    scope.abSelectedText.selection = selection;
+                    scope.abSelectedText.start = selectionStart;
+                    scope.abSelectedText.end = selectionEnd;
                 }
 
             });

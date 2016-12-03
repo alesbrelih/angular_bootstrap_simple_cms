@@ -10,6 +10,20 @@ function cmsToolServiceModule(app){
         // object for tools
         cmsFactory.Tools = {};
 
+        // --- SUPORTS TEXT SELECTION --- //
+        // insert paragraph
+
+        cmsFactory.Tools.InsertParagraph = (selection)=>{
+            //no current selection
+            if(selection === null){
+
+            }
+
+            //with current selection
+        };
+
+
+
         //return factory
         return cmsFactory;
 
