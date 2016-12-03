@@ -21,7 +21,6 @@ function cmsToolComponentModule(app){
         //set content for cms service
         CmsService.SetContent(vm.props);
 
-        console.log(vm.photos);
 
         // set photos list reference
         CmsService.SetPhotos(vm.photos);
@@ -35,7 +34,12 @@ function cmsToolComponentModule(app){
         vm.utilities = [
             {
                 classes:"btn btn-primary",
-                text:"<p>",
+                text:"new line",
+                type:"line"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"new paragraph",
                 type:"paragraph"
             },
             {
@@ -65,12 +69,12 @@ function cmsToolComponentModule(app){
             },
             {
                 classes:"btn btn-primary",
-                text:"line",
+                text:"h - line",
                 type:"horizontal-line"
             },
             {
-                classes:"btn btn-primary glyphicon glyphicon-file",
-                text:"",
+                classes:"btn btn-primary",
+                text:"photo",
                 type:"insert-photo"
             },
             {
@@ -103,6 +107,7 @@ function cmsToolComponentModule(app){
         //inserts photo
         vm.addPhoto = photoUrl =>{
             CmsService.Tools.InsertPhoto(photoUrl);
+            vm.selectPhoto = false;
         };
 
 

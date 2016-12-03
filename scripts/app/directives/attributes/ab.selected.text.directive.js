@@ -32,6 +32,13 @@ function abSelectedTextDirectiveModule(app){
                 }
 
             });
+            //if user types then selection follows
+            el.on("keyup",function(){
+
+                scope.abSelectedText.start = el[0].selectionStart;
+                scope.abSelectedText.end = el[0].selectionEnd;
+                scope.abSelectedText.selection = "";
+            });
         }
 
         //returned def for directive

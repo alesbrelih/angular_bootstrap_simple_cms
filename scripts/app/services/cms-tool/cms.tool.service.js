@@ -15,14 +15,14 @@ function cmsToolServiceModule(app){
             function insertElement(open,close){
 
                 if(props.selected.start == 0 && props.selected.end==0){
-                    props.content = props.content + open+close;
+                    props.content = props.content + "\n"+open+close+"\n";
                 }
                 else if(props.selected.start == props.selected.end){
-                    props.content = props.content.substring(0,props.selected.end)+open+close+props.content.substring(props.selected.end,props.content.length);
+                    props.content = props.content.substring(0,props.selected.end)+"\n"+open+close+"\n"+props.content.substring(props.selected.end,props.content.length);
                 }
                 else{
-                    props.content = props.content.substring(0,props.selected.end)+close+props.content.substring(props.selected.end,props.content.length);
-                    props.content = props.content.substring(0,props.selected.start)+open+props.content.substring(props.selected.start,props.content.length);
+                    props.content = props.content.substring(0,props.selected.end)+"\n"+close+"\n"+props.content.substring(props.selected.end,props.content.length);
+                    props.content = props.content.substring(0,props.selected.start)+"\n"+open+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
             }
@@ -30,10 +30,10 @@ function cmsToolServiceModule(app){
             //inserts element with no closing tag
             function insertSingle(el){
                 if(props.selected.start == 0 && props.selected.end==0){
-                    props.content = props.content + el;
+                    props.content = props.content + "\n"+el+ "\n";
                 }
                 else{
-                    props.content = props.content.substring(0,props.selected.start)+el+props.content.substring(props.selected.start,props.content.length);
+                    props.content = props.content.substring(0,props.selected.start)+"\n"+el+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
                 //TODO: INSERT TOASTR TO SAY THAT IT WILL BE INSERTED AT START
@@ -57,6 +57,9 @@ function cmsToolServiceModule(app){
 
             //switch function to insert element depending on stuff
             switch(element){
+            case "line":
+                insertSingle("<br>");
+                break;
             case "paragraph":
                 insertElement("<p>","</p>");
                 break;
@@ -67,7 +70,7 @@ function cmsToolServiceModule(app){
                 insertElement("<i>","</i>");
                 break;
             case "horizontal-line":
-                insertSingle("</hr>");
+                insertSingle("<hr>");
                 break;
             case "heading-1":
                 insertElement("<h1>","</h1>");
@@ -87,6 +90,7 @@ function cmsToolServiceModule(app){
             case "third-column":
                 insertContainer("third-column");
                 break;
+
             }
 
 
@@ -99,10 +103,10 @@ function cmsToolServiceModule(app){
                 const photo = "<img class='img-responsive' src='"+imgUrl+"'></img>";
 
                 if(props.selected.start == 0 && props.selected.end==0){
-                    props.content = props.content + photo;
+                    props.content = props.content +"\n"+ photo+"\n";
                 }
                 else{
-                    props.content = props.content.substring(0,props.selected.start)+photo+props.content.substring(props.selected.start,props.content.length);
+                    props.content = props.content.substring(0,props.selected.start)+"\n"+photo+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
             }
