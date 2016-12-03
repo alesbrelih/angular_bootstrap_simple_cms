@@ -20,5 +20,9 @@
     const services = require("./services/app.services");
     services(app);
 
+    //register filters
+    const filters = require("./filters/app.filters");
+    filters(app);
+
 
 })();

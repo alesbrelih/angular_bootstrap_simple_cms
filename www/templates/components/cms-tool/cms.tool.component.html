@@ -26,3 +26,37 @@
 
     </div>
 </div>
+<div class="photo-insert-select-wrapper">
+    <div class="photo-insert-select">
+        <div class="back-anchor text-center text-primary">
+            <a href="">Back</a>
+        </div>
+        <div class="main-body">
+            <div class="external-link">
+                <p> External link</p>
+                <form>
+                    <input type="text" placeholder="Insert photo url here" class="form-control"></input> <button type="submit" class="btn btn-primary glyphicon glyphicon-plus " value="" type="submit"></button>
+                </form>
+            </div>
+            <hr>
+            <div class="database-photos">
+                <p> Database photos </p>
+                <ul>
+                    <li ng-repeat="photo in vm.photos | startsWith:(vm.pageSize*vm.currentPage-1)">
+                        <div class="photo-container">
+                            <div class="title">
+                                {{photo.title}}
+                            </div>
+                            <div class="body">
+                                <img ng-src="{{photo.url}}" alt="">
+                            </div>
+                            <div class="action-btn">
+                                <button class="btn btn-primary glyphicon glyphicon-plus"></button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

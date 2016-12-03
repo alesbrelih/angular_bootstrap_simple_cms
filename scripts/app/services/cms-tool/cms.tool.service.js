@@ -107,8 +107,7 @@ function cmsToolServiceModule(app){
         // object for tools
         cmsFactory.Tools = {};
 
-        // --- SUPORTS TEXT SELECTION --- //
-        
+
         // insert element
         cmsFactory.Tools.Insert = element => {
             if(element){

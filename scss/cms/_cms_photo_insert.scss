@@ -1,0 +1,123 @@
+//background wrapper for fixed element of photo select
+.photo-insert-select-wrapper{
+    //full screen size
+    width:100vw;
+    height:100vh;
+
+    //bg color for wrapper (a bit opacity for extra effect)
+    background-color:rgba(#fff,0.9);
+
+    //position always fixed
+    position:fixed;
+    top:0px;
+    left:0px;
+
+    //display flex and centered children
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    //main wrapper
+    .photo-insert-select{
+
+        //bg and sizing
+        background-color:white;
+        min-height: 300px;
+        min-width: 300px;
+        max-height: 90%;
+
+        //border styles
+        border-radius: 4px;
+        border:2px solid $brand-primary;
+
+        //display for children
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        //top back anchor
+        .back-anchor{
+            display: block;
+            padding:30px 0 20px 0;
+            font-size:1.1em;
+            font-weight: bolder;
+        }
+
+        //main body
+        .main-body{
+            flex:1;
+            overflow:auto;
+            .external-link{
+                p{
+                    padding-left:20px;
+                    font-weight: bold;
+                    color:$text-color;
+                    margin:0px;
+                }
+                form{
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    input[type="text"]{
+                        padding:10px;
+                        margin:10px 10px 10px 30px;
+                    }
+                    button[type="submit"]{
+                        padding:10px 15px;
+                        margin:10px 20px;
+                    }
+                }
+            }
+            .database-photos{
+
+                padding:10px 10px 10px 0px;
+                p{
+                    padding-left:20px;
+                    font-weight: bold;
+                    color:$text-color;
+                    margin:0px;
+                    padding-bottom:10px;
+                }
+                ul{
+                    list-style-type: none;
+                }
+                .photo-container{
+
+                    display:flex;
+                    align-items:center;
+                    justify-content: center;
+
+
+                    .title{
+                        padding:10px;
+                        font-weight: bolder;
+                        color:$brand-primary;
+                        width:150px;
+                        flex-wrap: wrap;
+                        text-align: center;
+                    }
+
+                    .body{
+                        padding:10px;
+                        max-width: 200px;
+                        img{
+                            max-height: 90%;
+                            max-width: 100%;
+
+                        }
+                    }
+                    .action-btn{
+                        padding:10px;
+
+                        button{
+                            padding:10px 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

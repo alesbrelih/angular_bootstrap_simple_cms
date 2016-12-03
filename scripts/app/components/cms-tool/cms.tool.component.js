@@ -15,6 +15,21 @@ function cmsToolComponentModule(app){
         };
 
 
+        vm.photos = [
+            {
+                title:"First",
+                url:"https://static.pexels.com/photos/87293/pexels-photo-87293.jpeg"
+            },
+            {
+                title:"Second",
+                url:"https://static.pexels.com/photos/119720/pexels-photo-119720.jpeg"
+            },
+            {
+                title:"Third",
+                url:"https://static.pexels.com/photos/234881/pexels-photo-234881.jpeg"
+            }
+        ];
+
 
         //set content for cms service
         CmsService.SetContent(vm.props);
