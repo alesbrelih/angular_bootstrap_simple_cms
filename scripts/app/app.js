@@ -16,5 +16,9 @@
     const directives = require("./directives/app.directives");
     directives(app);
 
+    //register services
+    const services = require("./services/app.services");
+    services(app);
+
 
 })();

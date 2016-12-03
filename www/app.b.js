@@ -42636,9 +42636,13 @@ return jQuery;
     const directives = require("./directives/app.directives");
     directives(app);
 
+    //register services
+    const services = require("./services/app.services");
+    services(app);
+
 
 })();
-},{"../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min":3,"./components/app.components":6,"./directives/app.directives":8,"angular":2,"jquery":4}],6:[function(require,module,exports){
+},{"../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min":3,"./components/app.components":6,"./directives/app.directives":8,"./services/app.services":10,"angular":2,"jquery":4}],6:[function(require,module,exports){
 function allComponentsModule(app){
 
     //register cms-tool component
@@ -42656,16 +42660,20 @@ module.exports = allComponentsModule;
 function cmsToolComponentModule(app){
 
     //cms tool controller
-    function cmsToolController($sce,$scope){
+    function cmsToolController($sce,$scope,CmsService){
         const vm = this;
 
         // --- PROPERTIES --- //
 
-        //text area content
-        vm.content = "";
+        vm.props = {
+            content:"",
+            selected:null
+        };
 
-        //selectd text
-        vm.selected = "";
+
+
+        //set content for cms service
+        CmsService.SetContent(vm.props);
 
         //displayed html
         vm.safe = "";
@@ -42673,22 +42681,82 @@ function cmsToolComponentModule(app){
         //show preview
         vm.showPreview = false;
 
-        vm.test = ()=>{
+        vm.utilities = [
+            {
+                classes:"btn btn-primary",
+                text:"<p>",
+                type:"paragraph"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"bold",
+                type:"strong"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"italic",
+                type:"italic"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"H1",
+                type:"heading-1"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"H2",
+                type:"heading-2"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"H3",
+                type:"heading-3"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"line",
+                type:"horizontal-line"
+            },
+            {
+                classes:"btn btn-primary glyphicon glyphicon-file",
+                text:"",
+                type:"insert-photo"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"row",
+                type:"row"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"1/2 column",
+                type:"half-column"
+            },
+            {
+                classes:"btn btn-primary",
+                text:"1/3 column",
+                type:"third-column"
+            },
 
+
+        ];
+        vm.addElement=(type)=>{
+            CmsService.Tools.Insert(type);
         };
+
 
 
         // --- WATCH --- //
 
         //watch and set
-        $scope.$watch("vm.content",function(){
-            vm.safe =  $sce.trustAsHtml(vm.content);
+        $scope.$watch("vm.props.content",function(){
+            vm.safe =  $sce.trustAsHtml(vm.props.content);
         });
 
 
     }
 
-    cmsToolController.$inject = ["$sce","$scope"];
+    cmsToolController.$inject = ["$sce","$scope","CmsService"];
 
     //register component on app
     app.component("abCmsTool",{
@@ -42723,9 +42791,9 @@ function abSelectedTextDirectiveModule(app){
 
             //init set selected text values
             scope.abSelectedText = {
-                selection:null,
-                start:null,
-                end:null
+                selection:"",
+                start:0,
+                end:0
             };
 
             el.on("mouseup",function(e){
@@ -42766,4 +42834,148 @@ function abSelectedTextDirectiveModule(app){
 
 //export module
 module.exports = abSelectedTextDirectiveModule;
+},{}],10:[function(require,module,exports){
+// --- REGISTER ALL SERVICES MODULE --- //
+function registerAllServicesModule(app){
+
+    // cms tool service
+    const cmsToolService = require("./cms-tool/cms.tool.service");
+    cmsToolService(app);
+
+}
+
+//export module
+module.exports = registerAllServicesModule;
+},{"./cms-tool/cms.tool.service":11}],11:[function(require,module,exports){
+// --- CMS TOOL SERVICE MODULE --- //
+function cmsToolServiceModule(app){
+
+    //cms tool controller
+    function cmsToolController(){
+
+        // --- PRIVATES --- //
+        let props = null;
+
+        // private function that inserts substring to a string
+        function insert(element){
+
+            //private helper functions
+            function insertElement(open,close){
+
+                if(props.selected.start == 0 && props.selected.end==0){
+                    props.content = props.content + open+close;
+                }
+                else if(props.selected.start == props.selected.end){
+                    props.content = props.content.substring(0,props.selected.end)+open+close+props.content.substring(props.selected.end,props.content.length);
+                }
+                else{
+                    props.content = props.content.substring(0,props.selected.end)+close+props.content.substring(props.selected.end,props.content.length);
+                    props.content = props.content.substring(0,props.selected.start)+open+props.content.substring(props.selected.start,props.content.length);
+
+                }
+            }
+
+            //inserts element with no closing tag
+            function insertSingle(el){
+                if(props.selected.start == 0 && props.selected.end==0){
+                    props.content = props.content + el;
+                }
+                else{
+                    props.content = props.content.substring(0,props.selected.start)+el+props.content.substring(props.selected.start,props.content.length);
+
+                }
+                //TODO: INSERT TOASTR TO SAY THAT IT WILL BE INSERTED AT START
+            }
+
+            //inserts container
+            function insertContainer(type){
+
+                switch (type){
+                case "row":
+                    insertElement("<div class='row'>","</div>");
+                    break;
+                case "half-column":
+                    insertElement("<div class='col-md-6'>","</div>");
+                    break;
+                case "third-column":
+                    insertElement("<div class='col-md-4'>","</div>");
+                    break;
+                }
+            }
+
+            //switch function to insert element depending on stuff
+            switch(element){
+            case "paragraph":
+                insertElement("<p>","</p>");
+                break;
+            case "strong":
+                insertElement("<strong>","</strong>");
+                break;
+            case "italic":
+                insertElement("<i>","</i>");
+                break;
+            case "horizontal-line":
+                insertSingle("</hr>");
+                break;
+            case "heading-1":
+                insertElement("<h1>","</h1>");
+                break;
+            case "heading-2":
+                insertElement("<h2>","</h2>");
+                break;
+            case "heading-3":
+                insertElement("<h3>","</h3>");
+                break;
+            case "row":
+                insertContainer("row");
+                break;
+            case "half-column":
+                insertContainer("half-column");
+                break;
+            case "third-column":
+                insertContainer("third-column");
+                break;
+            }
+
+
+        }
+
+
+
+        // ---- PUBLICS ---- //
+
+        //returned factory
+        const cmsFactory = {};
+
+
+        //set content variable
+        cmsFactory.SetContent = contentVar => {
+            props = contentVar;
+        };
+
+        // object for tools
+        cmsFactory.Tools = {};
+
+        // --- SUPORTS TEXT SELECTION --- //
+        
+        // insert element
+        cmsFactory.Tools.Insert = element => {
+            if(element){
+                insert(element);
+            }
+        };
+
+
+
+        //return factory
+        return cmsFactory;
+
+    }
+
+    //register factory
+    app.factory("CmsService",cmsToolController);
+}
+
+//export module
+module.exports = cmsToolServiceModule;
 },{}]},{},[5]);

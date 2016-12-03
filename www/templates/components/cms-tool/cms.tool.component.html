@@ -1,6 +1,6 @@
 <div class="cms-tool">
     <div class="cms-utilities">
-        <button class="btn btn-primary">&lt p &gt</button>
+        <!--<button class="btn btn-primary" ng-click="vm.test()">&lt p &gt</button>
         <button class="btn btn-primary"><strong>b</strong></button>
         <button class="btn btn-primary"><i>i</i></button>
         <button class="btn btn-primary">&lt1/2 &gt</button>
@@ -10,10 +10,11 @@
         <button class="btn btn-primary">&lt h2 &gt</button>
         <button class="btn btn-primary">&lt h3 &gt</button>
         <button class="btn btn-primary">&lt row &gt</button>
-        <button class="btn btn-primary glyphicon glyphicon-file"></button>
+        <button class="btn btn-primary glyphicon glyphicon-file"></button>-->
+        <button ng-repeat="utility in vm.utilities" ng-click="vm.addElement(utility.type)" ng-class="utility.classes">{{utility.text}}</button>
     </div>
     <div class="cms-body">
-        <textarea ab-selected-text="vm.selected" ng-model="vm.content" rows="20"></textarea>
+        <textarea ab-selected-text="vm.props.selected" ng-model="vm.props.content" rows="20"></textarea>
     </div>
     <div class="cms-preview-action-bar text-right">
         <button class="btn btn-primary glyphicon glyphicon-eye-open" ng-click="vm.showPreview = !vm.showPreview"></button>

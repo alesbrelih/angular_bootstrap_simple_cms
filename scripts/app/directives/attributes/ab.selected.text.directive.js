@@ -8,9 +8,9 @@ function abSelectedTextDirectiveModule(app){
 
             //init set selected text values
             scope.abSelectedText = {
-                selection:null,
-                start:null,
-                end:null
+                selection:"",
+                start:0,
+                end:0
             };
 
             el.on("mouseup",function(e){
