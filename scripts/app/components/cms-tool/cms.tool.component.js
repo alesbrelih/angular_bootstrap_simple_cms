@@ -15,24 +15,16 @@ function cmsToolComponentModule(app){
         };
 
 
-        vm.photos = [
-            {
-                title:"First",
-                url:"https://static.pexels.com/photos/87293/pexels-photo-87293.jpeg"
-            },
-            {
-                title:"Second",
-                url:"https://static.pexels.com/photos/119720/pexels-photo-119720.jpeg"
-            },
-            {
-                title:"Third",
-                url:"https://static.pexels.com/photos/234881/pexels-photo-234881.jpeg"
-            }
-        ];
+
 
 
         //set content for cms service
         CmsService.SetContent(vm.props);
+
+        console.log(vm.photos);
+
+        // set photos list reference
+        CmsService.SetPhotos(vm.photos);
 
         //displayed html
         vm.safe = "";
@@ -99,8 +91,18 @@ function cmsToolComponentModule(app){
 
 
         ];
+
+        //inserts element
         vm.addElement=(type)=>{
+            if(type == "insert-photo"){
+                vm.selectPhoto = !vm.selectPhoto;
+            }
             CmsService.Tools.Insert(type);
+        };
+
+        //inserts photo
+        vm.addPhoto = photoUrl =>{
+            CmsService.Tools.InsertPhoto(photoUrl);
         };
 
 
@@ -121,7 +123,10 @@ function cmsToolComponentModule(app){
     app.component("abCmsTool",{
         controller: cmsToolController,
         controllerAs:"vm",
-        templateUrl:"/templates/components/cms-tool/cms.tool.component.html"
+        templateUrl:"/templates/components/cms-tool/cms.tool.component.html",
+        bindings:{
+            photos:"="
+        }
     });
 
 }

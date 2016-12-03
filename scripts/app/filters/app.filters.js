@@ -6,3 +6,6 @@ function registerAllFiltersModule(app){
     startsWith(app);
 
 }
+
+//export module
+module.exports = registerAllFiltersModule;

@@ -26,10 +26,10 @@
 
     </div>
 </div>
-<div class="photo-insert-select-wrapper">
+<div class="photo-insert-select-wrapper" ng-if="vm.selectPhoto">
     <div class="photo-insert-select">
         <div class="back-anchor text-center text-primary">
-            <a href="">Back</a>
+            <a href="" ng-click="vm.selectPhoto = false">Back</a>
         </div>
         <div class="main-body">
             <div class="external-link">
@@ -41,17 +41,18 @@
             <hr>
             <div class="database-photos">
                 <p> Database photos </p>
+                <p class="search-wrapper"><input placeholder="Search database photos" type="text" ng-model="vm.searchPhoto"></p>
                 <ul>
-                    <li ng-repeat="photo in vm.photos | startsWith:(vm.pageSize*vm.currentPage-1)">
+                    <li ng-repeat="photo in vm.photos | filter:vm.searchPhoto">
                         <div class="photo-container">
                             <div class="title">
-                                {{photo.title}}
+                                {{photo.PhotoTitle}}
                             </div>
                             <div class="body">
-                                <img ng-src="{{photo.url}}" alt="">
+                                <img ng-src="{{photo.PhotoUrl}}" alt="">
                             </div>
                             <div class="action-btn">
-                                <button class="btn btn-primary glyphicon glyphicon-plus"></button>
+                                <button class="btn btn-primary glyphicon glyphicon-plus" ng-click="vm.addPhoto(photo.PhotoUrl)"></button>
                             </div>
                         </div>
                     </li>

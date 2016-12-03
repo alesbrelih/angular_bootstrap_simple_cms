@@ -22,4 +22,4 @@ function startsWithFilterModule(app){
 
 }
 
-module.export = startsWithFilterModule;
+module.exports = startsWithFilterModule;

@@ -6,6 +6,7 @@ function cmsToolServiceModule(app){
 
         // --- PRIVATES --- //
         let props = null;
+        let photos = null;
 
         // private function that inserts substring to a string
         function insert(element){
@@ -91,6 +92,22 @@ function cmsToolServiceModule(app){
 
         }
 
+        //inserts photo
+        function insertPhoto(imgUrl){
+            if(imgUrl){ //url needs to exist
+
+                const photo = "<img class='img-responsive' src='"+imgUrl+"'></img>";
+
+                if(props.selected.start == 0 && props.selected.end==0){
+                    props.content = props.content + photo;
+                }
+                else{
+                    props.content = props.content.substring(0,props.selected.start)+photo+props.content.substring(props.selected.start,props.content.length);
+
+                }
+            }
+        }
+
 
 
         // ---- PUBLICS ---- //
@@ -104,6 +121,11 @@ function cmsToolServiceModule(app){
             props = contentVar;
         };
 
+        //set photos reference
+        cmsFactory.SetPhotos = photosRef => {
+            photos = photosRef;
+        };
+
         // object for tools
         cmsFactory.Tools = {};
 
@@ -113,6 +135,13 @@ function cmsToolServiceModule(app){
             if(element){
                 insert(element);
             }
+        };
+
+        cmsFactory.Tools.InsertPhoto = imgUrl => {
+            if(imgUrl){
+                insertPhoto(imgUrl);
+            }
+
         };
 
 
