@@ -47,6 +47,7 @@ function abSelectedTextDirectiveModule(app){
                 el[0].focus();
 
                 //if nothing was selected
+                //move cursor at end when addign element
                 if(scope.CmsService.selected.start == 0 && scope.CmsService.selected.end == 0){
                     el[0].selectionStart = el[0].value.length;
                     el[0].selectionEnd = el[0].value.length;

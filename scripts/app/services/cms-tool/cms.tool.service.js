@@ -131,11 +131,6 @@ function cmsToolServiceModule(app){
             props = contentVar;
         };
 
-        //set photos reference
-        cmsFactory.SetPhotos = photosRef => {
-            photos = photosRef;
-        };
-
         // object for tools
         cmsFactory.Tools = {};
 

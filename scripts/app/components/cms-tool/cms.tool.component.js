@@ -25,7 +25,7 @@ function cmsToolComponentModule(app){
 
 
         // set photos list reference
-        CmsService.SetPhotos(vm.photos);
+        //CmsService.SetPhotos(vm.photos);
 
 
         //displayed html

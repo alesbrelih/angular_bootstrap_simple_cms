@@ -46847,7 +46847,7 @@ function cmsToolComponentModule(app){
 
 
         // set photos list reference
-        CmsService.SetPhotos(vm.photos);
+        //CmsService.SetPhotos(vm.photos);
 
 
         //displayed html
@@ -47058,6 +47058,7 @@ function abSelectedTextDirectiveModule(app){
                 el[0].focus();
 
                 //if nothing was selected
+                //move cursor at end when addign element
                 if(scope.CmsService.selected.start == 0 && scope.CmsService.selected.end == 0){
                     el[0].selectionStart = el[0].value.length;
                     el[0].selectionEnd = el[0].value.length;
@@ -47287,11 +47288,6 @@ function cmsToolServiceModule(app){
         //set content variable
         cmsFactory.SetContent = contentVar => {
             props = contentVar;
-        };
-
-        //set photos reference
-        cmsFactory.SetPhotos = photosRef => {
-            photos = photosRef;
         };
 
         // object for tools

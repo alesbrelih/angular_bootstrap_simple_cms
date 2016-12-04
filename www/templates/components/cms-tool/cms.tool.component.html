@@ -24,8 +24,8 @@
         <div class="main-body">
             <div class="external-link">
                 <p> External link</p>
-                <form>
-                    <input type="text" placeholder="Insert photo url here" class="form-control"></input> <button type="submit" class="btn btn-primary glyphicon glyphicon-plus " value="" type="submit"></button>
+                <form novalidate ng-submit="vm.addPhoto(vm.externalPhoto)">
+                    <input type="text" placeholder="Insert photo url here" required class="form-control" ng-model="vm.externalPhoto"></input> <button type="submit" class="btn btn-primary glyphicon glyphicon-plus "type="submit"></button>
                 </form>
             </div>
             <hr>
