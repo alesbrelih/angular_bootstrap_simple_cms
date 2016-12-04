@@ -11,7 +11,9 @@ function cmsToolComponentModule(app){
 
         vm.props = {
             content:"",
-            selected:null
+            selected:null,
+            lastElement:"",
+            elementsAdded:0
         };
 
 
@@ -24,6 +26,7 @@ function cmsToolComponentModule(app){
 
         // set photos list reference
         CmsService.SetPhotos(vm.photos);
+
 
         //displayed html
         vm.safe = "";
@@ -95,6 +98,10 @@ function cmsToolComponentModule(app){
 
 
         ];
+
+        vm.test = ()=>{
+            CmsService.GetContent();
+        };
 
         //inserts element
         vm.addElement=(type)=>{

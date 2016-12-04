@@ -6,7 +6,6 @@ function cmsToolServiceModule(app){
 
         // --- PRIVATES --- //
         let props = null;
-        let photos = null;
 
         // private function that inserts substring to a string
         function insert(element){
@@ -25,6 +24,9 @@ function cmsToolServiceModule(app){
                     props.content = props.content.substring(0,props.selected.start)+"\n"+open+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
+                props.lastElement=open+close;
+                props.elementsAdded++;
+
             }
 
             //inserts element with no closing tag
@@ -36,6 +38,8 @@ function cmsToolServiceModule(app){
                     props.content = props.content.substring(0,props.selected.start)+"\n"+el+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
+                props.lastElement = el;
+                props.elementsAdded++;
                 //TODO: INSERT TOASTR TO SAY THAT IT WILL BE INSERTED AT START
             }
 
@@ -109,6 +113,8 @@ function cmsToolServiceModule(app){
                     props.content = props.content.substring(0,props.selected.start)+"\n"+photo+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
+                props.lastElement = photo;
+                props.elementsAdded++;
             }
         }
 
@@ -141,6 +147,7 @@ function cmsToolServiceModule(app){
             }
         };
 
+        //inserts photo
         cmsFactory.Tools.InsertPhoto = imgUrl => {
             if(imgUrl){
                 insertPhoto(imgUrl);
@@ -148,7 +155,24 @@ function cmsToolServiceModule(app){
 
         };
 
+        //gets cmstool service props
+        cmsFactory.GetProps = ()=>{
+            return props;
+        };
 
+        //returns content with no linebreaks
+        cmsFactory.GetContent = ()=>{
+
+            //return content with no linebreaks;
+
+            let noLineBreaks = props.content;
+            while(noLineBreaks.indexOf("\n") != -1){
+                noLineBreaks = noLineBreaks.replace("\n","");
+
+            }
+
+            return noLineBreaks;
+        };
 
         //return factory
         return cmsFactory;

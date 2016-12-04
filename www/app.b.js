@@ -46833,7 +46833,9 @@ function cmsToolComponentModule(app){
 
         vm.props = {
             content:"",
-            selected:null
+            selected:null,
+            lastElement:"",
+            elementsAdded:0
         };
 
 
@@ -46846,6 +46848,7 @@ function cmsToolComponentModule(app){
 
         // set photos list reference
         CmsService.SetPhotos(vm.photos);
+
 
         //displayed html
         vm.safe = "";
@@ -46917,6 +46920,10 @@ function cmsToolComponentModule(app){
 
 
         ];
+
+        vm.test = ()=>{
+            CmsService.GetContent();
+        };
 
         //inserts element
         vm.addElement=(type)=>{
@@ -47005,10 +47012,11 @@ module.exports = registerAllDirectivesModule;
 function abSelectedTextDirectiveModule(app){
 
     // directive controller
-    function abSelectedTextDirectiveController(){
+    function abSelectedTextDirectiveController(CmsService){
 
         //link fnc
         function linkFnc(scope,el){
+            scope.CmsService = CmsService.GetProps();
 
             //init set selected text values
             scope.abSelectedText = {
@@ -47021,10 +47029,12 @@ function abSelectedTextDirectiveModule(app){
                 //left mouse button
                 if(e.which === 1){
 
+                    //using math.max because i want start always the smaller index
+
                     //selection start index
-                    const selectionStart = el[0].selectionStart;
+                    const selectionStart = Math.min(el[0].selectionStart,el[0].selectionEnd);
                     //selection end index
-                    const selectionEnd = el[0].selectionEnd;
+                    const selectionEnd = Math.max(el[0].selectionEnd,el[0].selectionStart);
 
                     //selected text
                     const selection = el[0].value.substring(selectionStart,selectionEnd);
@@ -47043,6 +47053,38 @@ function abSelectedTextDirectiveModule(app){
                 scope.abSelectedText.end = el[0].selectionEnd;
                 scope.abSelectedText.selection = "";
             });
+
+            scope.$watch("CmsService.elementsAdded",function(){
+                el[0].focus();
+
+                //if nothing was selected
+                if(scope.CmsService.selected.start == 0 && scope.CmsService.selected.end == 0){
+                    el[0].selectionStart = el[0].value.length;
+                    el[0].selectionEnd = el[0].value.length;
+                }
+                //bigger selection
+                else if(scope.CmsService.selected.start != scope.CmsService.selected.end){
+
+                    let newStart = scope.CmsService.selected.start;
+                    // +3 because of new line signs
+                    let newEnd = scope.CmsService.selected.end + scope.CmsService.lastElement.length + 3;
+
+                    //text area selection
+                    el[0].selectionStart = newStart;
+                    el[0].selectionEnd = newEnd;
+
+                    //Set cms service props
+                    scope.CmsService.selected.start = newStart;
+                    scope.CmsService.selected.end = newEnd;
+
+
+                }
+                else{
+                    el[0].selectionStart = scope.CmsService.selected.start;
+                    el[0].selectionEnd = scope.CmsService.selected.end;
+                }
+
+            });
         }
 
         //returned def for directive
@@ -47055,6 +47097,7 @@ function abSelectedTextDirectiveModule(app){
 
         };
     }
+    abSelectedTextDirectiveController.$inject = ["CmsService"];
 
     //register directive
     app.directive("abSelectedText",abSelectedTextDirectiveController);
@@ -47121,7 +47164,6 @@ function cmsToolServiceModule(app){
 
         // --- PRIVATES --- //
         let props = null;
-        let photos = null;
 
         // private function that inserts substring to a string
         function insert(element){
@@ -47140,6 +47182,9 @@ function cmsToolServiceModule(app){
                     props.content = props.content.substring(0,props.selected.start)+"\n"+open+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
+                props.lastElement=open+close;
+                props.elementsAdded++;
+
             }
 
             //inserts element with no closing tag
@@ -47151,6 +47196,8 @@ function cmsToolServiceModule(app){
                     props.content = props.content.substring(0,props.selected.start)+"\n"+el+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
+                props.lastElement = el;
+                props.elementsAdded++;
                 //TODO: INSERT TOASTR TO SAY THAT IT WILL BE INSERTED AT START
             }
 
@@ -47224,6 +47271,8 @@ function cmsToolServiceModule(app){
                     props.content = props.content.substring(0,props.selected.start)+"\n"+photo+"\n"+props.content.substring(props.selected.start,props.content.length);
 
                 }
+                props.lastElement = photo;
+                props.elementsAdded++;
             }
         }
 
@@ -47256,6 +47305,7 @@ function cmsToolServiceModule(app){
             }
         };
 
+        //inserts photo
         cmsFactory.Tools.InsertPhoto = imgUrl => {
             if(imgUrl){
                 insertPhoto(imgUrl);
@@ -47263,7 +47313,24 @@ function cmsToolServiceModule(app){
 
         };
 
+        //gets cmstool service props
+        cmsFactory.GetProps = ()=>{
+            return props;
+        };
 
+        //returns content with no linebreaks
+        cmsFactory.GetContent = ()=>{
+
+            //return content with no linebreaks;
+
+            let noLineBreaks = props.content;
+            while(noLineBreaks.indexOf("\n") != -1){
+                noLineBreaks = noLineBreaks.replace("\n","");
+
+            }
+
+            return noLineBreaks;
+        };
 
         //return factory
         return cmsFactory;
