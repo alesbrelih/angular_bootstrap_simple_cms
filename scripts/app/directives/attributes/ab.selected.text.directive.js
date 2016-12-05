@@ -44,35 +44,42 @@ function abSelectedTextDirectiveModule(app){
             });
 
             scope.$watch("CmsService.elementsAdded",function(){
+                
+                //focus element
                 el[0].focus();
 
-                //if nothing was selected
-                //move cursor at end when addign element
-                if(scope.CmsService.selected.start == 0 && scope.CmsService.selected.end == 0){
-                    el[0].selectionStart = el[0].value.length;
-                    el[0].selectionEnd = el[0].value.length;
-                }
-                //bigger selection
-                else if(scope.CmsService.selected.start != scope.CmsService.selected.end){
-
-                    let newStart = scope.CmsService.selected.start;
-                    // +3 because of new line signs
-                    let newEnd = scope.CmsService.selected.end + scope.CmsService.lastElement.length + 3;
-
-                    //text area selection
-                    el[0].selectionStart = newStart;
-                    el[0].selectionEnd = newEnd;
-
-                    //Set cms service props
-                    scope.CmsService.selected.start = newStart;
-                    scope.CmsService.selected.end = newEnd;
+                //set selection
+                el[0].selectionStart = scope.CmsService.selected.start;
+                el[0].selectionEnd = scope.CmsService.selected.end;
 
 
-                }
-                else{
-                    el[0].selectionStart = scope.CmsService.selected.start;
-                    el[0].selectionEnd = scope.CmsService.selected.end;
-                }
+                // //if nothing was selected
+                // //move cursor at end when addign element
+                // if(scope.CmsService.selected.start == 0 && scope.CmsService.selected.end == 0){
+                //     el[0].selectionStart = el[0].value.length;
+                //     el[0].selectionEnd = el[0].value.length;
+                // }
+                // //bigger selection
+                // else if(scope.CmsService.selected.start != scope.CmsService.selected.end){
+
+                //     let newStart = scope.CmsService.selected.start;
+                //     // +3 because of new line signs
+                //     let newEnd = scope.CmsService.selected.end + scope.CmsService.lastElement.length + 3;
+
+                //     //text area selection
+                //     el[0].selectionStart = newStart;
+                //     el[0].selectionEnd = newEnd;
+
+                //     //Set cms service props
+                //     scope.CmsService.selected.start = newStart;
+                //     scope.CmsService.selected.end = newEnd;
+
+
+                // }
+                // else{
+                //     el[0].selectionStart = scope.CmsService.selected.start;
+                //     el[0].selectionEnd = scope.CmsService.selected.end;
+                // }
 
             });
         }
